@@ -221,6 +221,48 @@ BsonIterInit(BSON_ITERATOR *it, BSON *b)
 }
 
 
+/* custom functions that should be in libbson*/
+#define ITER_TYPE(i) ((bson_type_t) * ((i)->raw + (i)->type))
+int32_t
+bson_iter_as_int32 (const bson_iter_t *iter) /* IN */
+{
+  BSON_ASSERT(iter);
+
+  switch ((int) ITER_TYPE(iter)) {
+  case BSON_TYPE_BOOL:
+    return (int32_t) bson_iter_bool(iter);
+  case BSON_TYPE_DOUBLE:
+    return (int32_t) bson_iter_double(iter);
+  case BSON_TYPE_INT32:
+    return bson_iter_int32(iter);
+  default:
+    return 0;
+  }
+}
+
+
+double
+bson_iter_as_double (const bson_iter_t *iter) /* IN */
+{
+  BSON_ASSERT(iter);
+
+  switch ((int) ITER_TYPE(iter)) {
+  case BSON_TYPE_BOOL:
+    return (double) bson_iter_bool(iter);
+  case BSON_TYPE_DOUBLE:
+    return bson_iter_double(iter);
+  case BSON_TYPE_INT32:
+    return (double) bson_iter_int32(iter);
+  case BSON_TYPE_INT64:
+    return (double) bson_iter_int64 (iter);
+  default:
+    return 0;
+  }
+}
+/* end of custom functions*/
+
+
+
 bool
 BsonIterSubObject(BSON_ITERATOR *it, BSON *b)
 {
@@ -235,28 +277,28 @@ BsonIterSubObject(BSON_ITERATOR *it, BSON *b)
 int32_t
 BsonIterInt32(BSON_ITERATOR *it)
 {
-	return bson_iter_int32(it);
+	return bson_iter_as_int32(it);
 }
 
 
 int64_t
 BsonIterInt64(BSON_ITERATOR *it)
 {
-	return bson_iter_int64(it);
+	return bson_iter_as_int64(it);
 }
 
 
 double
 BsonIterDouble(BSON_ITERATOR *it)
 {
-	return bson_iter_double(it);
+	return bson_iter_as_double(it);
 }
 
 
 bool
 BsonIterBool(BSON_ITERATOR *it)
 {
-	return bson_iter_bool(it);
+	return bson_iter_as_bool(it);
 }
 
 

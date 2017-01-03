@@ -25,10 +25,10 @@ fi
 function checkout_mongo_driver
 {
 	rm -rf mongo-c-driver
-	wget https://github.com/mongodb/mongo-c-driver/releases/download/1.3.1/mongo-c-driver-1.3.1.tar.gz
-	tar -zxvf mongo-c-driver-1.3.1.tar.gz
-	mv mongo-c-driver-1.3.1 mongo-c-driver
-	rm -rf mongo-c-driver-1.3.1.tar.gz
+	wget https://github.com/mongodb/mongo-c-driver/releases/download/1.5.1/mongo-c-driver-1.5.1.tar.gz
+	tar -zxvf mongo-c-driver-1.5.1.tar.gz
+	mv mongo-c-driver-1.5.1 mongo-c-driver
+	rm -rf mongo-c-driver-1.5.1.tar.gz
 }
 
 ###
